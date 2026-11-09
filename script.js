@@ -294,6 +294,27 @@
     window.open(url, "_blank", "noopener");
   });
 
+  /* ---------------- Copy account number ---------------- */
+
+  var copyBtn = document.getElementById("copyAcct");
+  copyBtn.addEventListener("click", function () {
+    var text = copyBtn.getAttribute("data-copy");
+    function done(ok) {
+      copyBtn.textContent = ok ? "Copied!" : "Number: " + text;
+      setTimeout(function () { copyBtn.textContent = "Copy account number"; }, 2200);
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
+    } else {
+      var ta = document.createElement("textarea");
+      ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta); done(ok);
+    }
+  });
+
   /* ---------------- Scroll reveal ---------------- */
 
   var reveals = document.querySelectorAll(".reveal");

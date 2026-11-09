@@ -859,6 +859,31 @@ button { font: inherit; }
 .swatch--gold { background: radial-gradient(circle at 30% 30%, #f4e2a6, #b88a35); }
 .swatch--ivory { background: radial-gradient(circle at 30% 30%, #ffffff, #efe4c9); }
 
+/* ---------- Gifts ---------- */
+
+.gifts { padding-top: 2rem; }
+.bank {
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 2.2rem 1.5rem 2rem;
+  text-align: center;
+  background: linear-gradient(180deg, #fffaf0, var(--cream));
+  border-radius: var(--radius);
+  box-shadow: 0 0 0 1px var(--gold), 0 0 0 7px var(--ivory), 0 0 0 8px var(--gold-light), var(--shadow);
+}
+.bank__bank { margin: 0; font-family: var(--font-caps); font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold-dark); }
+.bank__number {
+  margin: 0.5rem 0 0.2rem;
+  font-family: var(--font-caps);
+  font-weight: 600;
+  font-size: clamp(1.8rem, 7vw, 2.4rem);
+  letter-spacing: 0.12em;
+  color: var(--burgundy);
+  font-variant-numeric: tabular-nums;
+  user-select: all;
+}
+.bank__name { margin: 0 0 1.4rem; font-size: 1.25rem; font-style: italic; color: var(--green); }
+
 /* ---------- RSVP ---------- */
 
 .rsvp { overflow: hidden; }
