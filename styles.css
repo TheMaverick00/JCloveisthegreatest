@@ -151,7 +151,7 @@ button { font: inherit; }
   aspect-ratio: 3 / 4;
   background: var(--cream);
 }
-.arch img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+.arch img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; }
 
 /* Decorative roses cut from the invitation */
 .roses {
@@ -220,7 +220,7 @@ button { font: inherit; }
 }
 .nav__toggle { display: none; }
 
-@media (max-width: 860px) {
+@media (max-width: 1080px) {
   .nav__brand { opacity: 1; }
   .nav { background: rgba(251, 247, 238, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
   .nav__toggle {
@@ -490,6 +490,7 @@ button { font: inherit; }
 }
 .person { text-align: center; }
 .person .arch { max-width: 320px; margin: 0 auto 1.8rem; }
+.person .arch img { object-position: center top; }
 .person__role { margin: 0; font-family: var(--font-caps); font-size: 0.78rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold-dark); }
 .person__name { margin: 0.2rem 0; font-family: var(--font-script); font-weight: 400; font-size: clamp(2.2rem, 5vw, 2.8rem); line-height: 1.2; color: var(--burgundy); }
 .person__family { margin: 0; color: var(--muted); font-style: italic; }
@@ -509,6 +510,155 @@ button { font: inherit; }
   .couple__grid { grid-template-columns: 1fr; }
   .couple__heart { justify-self: center; }
   .person .arch { max-width: 280px; }
+}
+
+/* ---------- Photoshoot (highlight) ---------- */
+
+.shoot { background: var(--ivory); }
+.shoot__banner {
+  position: relative;
+  height: min(92vh, 940px);
+  min-height: 520px;
+  overflow: hidden;
+  display: grid;
+  place-items: end start;
+  border-bottom: 6px solid var(--gold);
+}
+.shoot__banner img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 62%;
+  transform: scale(1.06);
+  animation: slowZoom 18s ease-out forwards;
+}
+.shoot__banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20, 8, 4, 0.15) 0%, rgba(20, 8, 4, 0) 40%, rgba(20, 8, 4, 0.75) 100%);
+}
+.shoot__banner-text {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0 1rem clamp(3rem, 8vh, 5rem) clamp(1.5rem, 7vw, 6rem);
+  color: var(--cream);
+}
+/* desktop: title bottom-left beside the couple; phones: title in the night sky above them */
+.shoot__banner::after { background: linear-gradient(90deg, rgba(20, 8, 4, 0.7) 0%, rgba(20, 8, 4, 0.25) 45%, rgba(20, 8, 4, 0) 70%), linear-gradient(180deg, transparent 55%, rgba(20, 8, 4, 0.55)); }
+@media (max-width: 760px) {
+  .shoot__banner { place-items: start center; }
+  .shoot__banner img { object-position: 50% 70%; }
+  .shoot__banner::after { background: linear-gradient(180deg, rgba(20, 8, 4, 0.8) 0%, rgba(20, 8, 4, 0.2) 40%, transparent 60%); }
+  .shoot__banner-text { padding: clamp(2.5rem, 8vh, 4rem) 1rem 0; text-align: center; }
+}
+.shoot__banner-text .eyebrow { color: var(--gold-light); }
+.shoot__banner-text h2 {
+  margin: 0;
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: clamp(3.6rem, 11vw, 7rem);
+  line-height: 1;
+  color: #fff7e6;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.45);
+}
+.shoot__banner-text h2 span { color: var(--gold-light); font-size: 0.65em; }
+.shoot__banner-text > p:last-child { margin: 0.6rem 0 0; font-style: italic; font-size: 1.25rem; }
+@keyframes slowZoom { to { transform: scale(1); } }
+
+.chapters {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: clamp(3.5rem, 8vw, 6rem) 1rem clamp(2rem, 5vw, 3rem);
+  display: grid;
+  gap: clamp(3.5rem, 8vw, 6rem);
+}
+.chapter__head {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  margin-bottom: clamp(1.5rem, 3vw, 2.2rem);
+}
+.chapter__num {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 0.6rem;
+  border-radius: 50%;
+  font-family: var(--font-caps);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  background: var(--burgundy);
+  box-shadow: 0 0 0 3px var(--ivory), 0 0 0 4px var(--gold);
+}
+.chapter__title { margin: 0; font-family: var(--font-script); font-weight: 400; font-size: clamp(2.4rem, 6vw, 3.4rem); line-height: 1.1; color: var(--burgundy); }
+.chapter__line { margin: 0.3rem 0 0; font-style: italic; color: var(--muted); font-size: 1.15rem; }
+
+.mosaic {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: clamp(200px, 24vw, 330px);
+  gap: clamp(8px, 1.2vw, 14px);
+}
+.mosaic__item {
+  position: relative;
+  padding: 0;
+  border: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--cream);
+  cursor: zoom-in;
+}
+.mosaic__item img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; transition: transform 0.7s ease; }
+.mosaic__item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(195, 154, 69, 0.45);
+  pointer-events: none;
+}
+.mosaic__item:hover img,
+.mosaic__item:focus-visible img { transform: scale(1.05); }
+.mosaic__item:focus-visible { outline: 2px solid var(--burgundy); outline-offset: 3px; }
+.mosaic__item--lead { grid-column: span 2; grid-row: span 2; }
+.chapter--flip .mosaic__item--lead { grid-column: 3 / span 2; grid-row: 1 / span 2; }
+@media (max-width: 700px) {
+  .mosaic { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 62vw; }
+  .chapter--flip .mosaic__item--lead { grid-column: span 2; grid-row: span 2; }
+}
+
+/* ---------- Verse band ---------- */
+
+.verseband {
+  padding: clamp(4rem, 9vw, 6.5rem) 1rem;
+  background: radial-gradient(ellipse at 30% 50%, #3a2108 0%, #140a04 70%);
+  color: var(--cream);
+  border-bottom: 6px solid var(--gold);
+}
+.verseband__inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5rem);
+}
+.verseband__img { margin: 0; border-radius: 18px; overflow: hidden; box-shadow: 0 0 0 1px var(--gold), 0 30px 60px -20px rgba(0, 0, 0, 0.8); }
+.verseband__img img { width: 100%; height: auto; }
+.verseband__text { text-align: center; }
+.verseband .eyebrow { color: var(--gold); letter-spacing: 0.2em; text-transform: none; font-size: 0.95rem; }
+.verseband .section__title { color: var(--gold-light); }
+.verseband .verse { color: var(--cream); font-size: 1.4rem; }
+.verseband .verse cite { color: var(--gold); }
+@media (max-width: 760px) {
+  .verseband__inner { grid-template-columns: 1fr; }
+  .verseband__img { max-width: 360px; margin: 0 auto; }
 }
 
 /* ---------- Moments (polaroids) ---------- */

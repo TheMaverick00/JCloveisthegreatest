@@ -14,17 +14,32 @@
     { src: "couple-05.jpg", caption: "Forever smiling", r: -3 }
   ];
 
-  // [file, width, height] of the processed traditional-wedding photos
+  // Pre-wedding photoshoot, in three chapters. First image of each is the large lead.
+  var shootChapters = [
+    {
+      num: "I", title: "Rooted in Heritage", line: "In traditional attire, woven stripes and gold.",
+      photos: [["heritage-1", 1600, 2000], ["heritage-2", 1333, 2000], ["heritage-3", 1333, 2000], ["heritage-4", 1333, 2000], ["heritage-5", 1333, 2000]]
+    },
+    {
+      num: "II", title: "Honour & Grace", line: "His uniform, her burgundy gown.",
+      photos: [["honour-1", 1600, 2000], ["honour-2", 1333, 2000], ["honour-3", 1600, 2000], ["honour-4", 1333, 2000], ["honour-5", 1333, 2000]]
+    },
+    {
+      num: "III", title: "Simply Us", line: "Denim, bare feet and easy laughter.",
+      photos: [["simply-1", 1600, 2000], ["simply-2", 1600, 2000], ["simply-3", 1600, 2000], ["simply-4", 1600, 2000], ["simply-5", 1440, 2000]]
+    }
+  ];
+
+  // [file, width, height] of the curated traditional-wedding photos
   var tradPhotos = [
-    ["trad-01.jpg", 1130, 807], ["trad-10.jpg", 838, 1173], ["trad-02.jpg", 1210, 864],
-    ["trad-05.jpg", 740, 1035], ["trad-26.jpg", 1210, 864], ["trad-03.jpg", 1162, 830],
-    ["trad-12.jpg", 1210, 864], ["trad-14.jpg", 1210, 864],
-    ["trad-24.jpg", 1210, 864], ["trad-25.jpg", 1210, 864], ["trad-06.jpg", 1210, 864],
-    ["trad-18.jpg", 864, 1210], ["trad-16.jpg", 1210, 864], ["trad-07.jpg", 1210, 864],
-    ["trad-08.jpg", 1210, 864], ["trad-13.jpg", 1210, 864], ["trad-09.jpg", 1210, 864],
-    ["trad-22.jpg", 864, 1210], ["trad-15.jpg", 1210, 864], ["trad-17.jpg", 1210, 864],
-    ["trad-19.jpg", 1210, 864], ["trad-20.jpg", 1210, 864], ["trad-23.jpg", 1210, 864],
-    ["trad-04.jpg", 740, 1035], ["trad-11.jpg", 826, 1157], ["trad-21.jpg", 1191, 851]
+    ["trad-27.jpg", 1023, 1280], ["trad-26.jpg", 1210, 864], ["trad-01.jpg", 1130, 807],
+    ["trad-10.jpg", 838, 1173], ["trad-28.jpg", 1023, 1280], ["trad-02.jpg", 1210, 864],
+    ["trad-06.jpg", 1210, 864], ["trad-14.jpg", 1210, 864], ["trad-29.jpg", 1023, 1280],
+    ["trad-04.jpg", 740, 1035], ["trad-12.jpg", 1210, 864], ["trad-31.jpg", 1051, 841],
+    ["trad-03.jpg", 1162, 830], ["trad-30.jpg", 840, 1049], ["trad-24.jpg", 1210, 864],
+    ["trad-25.jpg", 1210, 864], ["trad-32.jpg", 1145, 916], ["trad-18.jpg", 864, 1210],
+    ["trad-23.jpg", 1210, 864], ["trad-33.jpg", 1280, 853], ["trad-34.jpg", 1165, 932],
+    ["trad-35.jpg", 1280, 1023], ["trad-11.jpg", 826, 1157], ["trad-21.jpg", 1191, 851]
   ];
   var INITIAL_VISIBLE = 12;
 
@@ -79,6 +94,28 @@
   }
   tick();
   timer = setInterval(tick, 1000);
+
+  /* ---------------- Photoshoot chapters ---------------- */
+
+  var chapters = document.getElementById("chapters");
+  shootChapters.forEach(function (ch, ci) {
+    var wrap = document.createElement("article");
+    wrap.className = "chapter" + (ci % 2 ? " chapter--flip" : "");
+    var html =
+      '<header class="chapter__head reveal"><span class="chapter__num">' + ch.num + "</span>" +
+      '<h3 class="chapter__title">' + ch.title + '</h3><p class="chapter__line">' + ch.line + "</p></header>" +
+      '<div class="mosaic">';
+    ch.photos.forEach(function (p, i) {
+      html +=
+        '<button type="button" class="mosaic__item reveal' + (i === 0 ? " mosaic__item--lead" : "") + '"' +
+        ' data-lightbox="/assets/images/shoot/' + p[0] + '.jpg" data-group="shoot"' +
+        ' data-caption="' + ch.title + '" aria-label="View photo: ' + ch.title + " " + (i + 1) + '">' +
+        '<img src="/assets/images/shoot/' + (i === 0 ? "" : "thumbs/") + p[0] + '.jpg" alt="Chat and John, ' +
+        ch.title + " photo " + (i + 1) + '" loading="lazy" width="' + p[1] + '" height="' + p[2] + '" /></button>';
+    });
+    wrap.innerHTML = html + "</div>";
+    chapters.appendChild(wrap);
+  });
 
   /* ---------------- Polaroids ---------------- */
 
