@@ -30,19 +30,6 @@
     }
   ];
 
-  // [file, width, height] of the curated traditional-wedding photos
-  var tradPhotos = [
-    ["trad-27.jpg", 1023, 1280], ["trad-26.jpg", 1210, 864], ["trad-01.jpg", 1130, 807],
-    ["trad-10.jpg", 838, 1173], ["trad-28.jpg", 1023, 1280], ["trad-02.jpg", 1210, 864],
-    ["trad-06.jpg", 1210, 864], ["trad-14.jpg", 1210, 864], ["trad-29.jpg", 1023, 1280],
-    ["trad-04.jpg", 740, 1035], ["trad-12.jpg", 1210, 864], ["trad-31.jpg", 1051, 841],
-    ["trad-03.jpg", 1162, 830], ["trad-30.jpg", 840, 1049], ["trad-24.jpg", 1210, 864],
-    ["trad-25.jpg", 1210, 864], ["trad-32.jpg", 1145, 916], ["trad-18.jpg", 864, 1210],
-    ["trad-23.jpg", 1210, 864], ["trad-33.jpg", 1280, 853], ["trad-34.jpg", 1165, 932],
-    ["trad-35.jpg", 1280, 1023], ["trad-11.jpg", 826, 1157], ["trad-21.jpg", 1191, 851]
-  ];
-  var INITIAL_VISIBLE = 12;
-
   /* ---------------- Navigation ---------------- */
 
   var nav = document.getElementById("nav");
@@ -133,38 +120,6 @@
       '<img src="/assets/images/couple/thumbs/' + p.src + '" alt="Chat and John — ' + p.caption +
       '" loading="lazy" width="405" height="720" /><span>' + p.caption + "</span>";
     polaroids.appendChild(btn);
-  });
-
-  /* ---------------- Traditional wedding gallery ---------------- */
-
-  var gallery = document.getElementById("gallery");
-  var moreBtn = document.getElementById("galleryMore");
-
-  tradPhotos.forEach(function (p, i) {
-    var btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "gallery__item" + (i >= INITIAL_VISIBLE ? " is-hidden" : "");
-    btn.setAttribute("data-lightbox", "/assets/images/trad/" + p[0]);
-    btn.setAttribute("data-group", "trad");
-    btn.setAttribute("data-caption", "Traditional Wedding · 10 October 2026");
-    btn.setAttribute("aria-label", "View traditional wedding photo " + (i + 1) + " of " + tradPhotos.length);
-    btn.innerHTML =
-      '<img src="/assets/images/trad/thumbs/' + p[0] + '" alt="Traditional wedding photo ' + (i + 1) +
-      '" loading="lazy" width="' + p[1] + '" height="' + p[2] + '" />';
-    gallery.appendChild(btn);
-  });
-
-  if (tradPhotos.length <= INITIAL_VISIBLE) {
-    moreBtn.parentElement.hidden = true;
-  }
-  moreBtn.addEventListener("click", function () {
-    var expanded = moreBtn.getAttribute("data-expanded") === "true";
-    gallery.querySelectorAll(".gallery__item").forEach(function (el, i) {
-      if (i >= INITIAL_VISIBLE) el.classList.toggle("is-hidden", expanded);
-    });
-    moreBtn.setAttribute("data-expanded", String(!expanded));
-    moreBtn.textContent = expanded ? "View all photos" : "Show fewer";
-    if (expanded) document.getElementById("traditional").scrollIntoView();
   });
 
   /* ---------------- Lightbox ---------------- */
