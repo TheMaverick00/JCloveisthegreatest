@@ -633,6 +633,42 @@ button { font: inherit; }
   .chapter--flip .mosaic__item--lead { grid-column: span 2; grid-row: span 2; }
 }
 
+/* Mobile-only quick links between the banner and the chapters */
+.quicknav { display: none; }
+@media (max-width: 1080px) {
+  .quicknav {
+    display: block;
+    padding: 2rem 1rem 0;
+    text-align: center;
+  }
+  .quicknav__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.55rem;
+    max-width: 520px;
+    margin: 0.4rem auto 0;
+  }
+  .quicknav__links a {
+    padding: 0.6rem 1rem;
+    font-family: var(--font-caps);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--burgundy);
+    border: 1.5px solid var(--gold);
+    border-radius: 999px;
+    background: #fffaf0;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .quicknav__links a:active,
+  .quicknav__links a:hover { background: var(--burgundy); color: var(--gold-light); }
+  .quicknav__links .quicknav__cta { background: var(--burgundy); color: var(--gold-light); }
+  .quicknav + .chapters { padding-top: 2.5rem; }
+}
+
 /* ---------- Verse band ---------- */
 
 .verseband {
