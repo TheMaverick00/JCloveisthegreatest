@@ -55,6 +55,74 @@
     if (e.target.closest("a")) setMenu(false);
   });
 
+  /* ---------------- Hero slideshow ---------------- */
+
+  (function () {
+    var box = document.getElementById("heroSlides");
+    var dotsBox = document.getElementById("heroDots");
+    // The first slide is already in the HTML; the rest are added here and load after the page has.
+    var more = [
+      ["heritage-1", "Chat and John smiling, in traditional attire", "center 20%"],
+      ["simply-1", "Chat and John sitting close together in denim", "center 15%"],
+      ["honour-1", "Chat in a burgundy gown resting her head on John's shoulder", "70% 10%"],
+      ["heritage-2", "John and Chat leaning in, in traditional attire", "center 15%"],
+      ["honour-5", "John seated in uniform with Chat standing behind him", "center 10%"],
+      ["simply-2", "Chat and John laughing together in denim", "center 15%"]
+    ];
+    var slides = [box.querySelector("img")];
+    more.forEach(function (m) {
+      var img = document.createElement("img");
+      img.alt = m[1];
+      img.width = 900; img.height = 1125;
+      img.style.objectPosition = m[2];
+      img.setAttribute("data-src", "/assets/images/slides/" + m[0] + ".jpg");
+      box.appendChild(img);
+      slides.push(img);
+    });
+
+    var current = 0, timer = null;
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var dots = slides.map(function (_, i) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("aria-label", "Show photo " + (i + 1) + " of " + slides.length);
+      b.addEventListener("click", function () { go(i); restart(); });
+      dotsBox.appendChild(b);
+      return b;
+    });
+
+    function ensure(img) {
+      var src = img.getAttribute("data-src");
+      if (src) { img.src = src; img.removeAttribute("data-src"); }
+    }
+    function show(i) {
+      slides[current].classList.remove("is-active");
+      current = i;
+      slides[current].classList.add("is-active");
+      dots.forEach(function (d, k) { d.setAttribute("aria-current", String(k === current)); });
+      ensure(slides[(current + 1) % slides.length]); // preload the one after
+    }
+    function go(i) {
+      var img = slides[i];
+      ensure(img);
+      if (img.complete && img.naturalWidth) show(i);
+      else img.addEventListener("load", function () { show(i); }, { once: true });
+    }
+    function next() {
+      var n = (current + 1) % slides.length, img = slides[n];
+      ensure(img);
+      // only advance once the next photo has arrived, so there is never a blank frame
+      if (img.complete && img.naturalWidth) show(n);
+    }
+    function restart() {
+      clearInterval(timer);
+      if (!reduced) timer = setInterval(function () { if (!document.hidden) next(); }, 4500);
+    }
+
+    dots[0].setAttribute("aria-current", "true");
+    window.addEventListener("load", function () { ensure(slides[1]); restart(); });
+  })();
+
   /* ---------------- Countdown ---------------- */
 
   var countdown = document.getElementById("countdown");
