@@ -7,11 +7,12 @@
   var WEDDING = new Date("2026-12-19T11:00:00+01:00");
 
   var couplePhotos = [
-    { src: "couple-01.jpg", caption: "Always you", r: -4 },
-    { src: "couple-02.jpg", caption: "Rooted in love", r: 3 },
-    { src: "couple-03.jpg", caption: "By the water", r: -2 },
-    { src: "couple-04.jpg", caption: "Side by side", r: 4 },
-    { src: "couple-05.jpg", caption: "Forever smiling", r: -3 }
+    { src: "candid-01.jpg", caption: "Always you", r: -4 },
+    { src: "candid-03.jpg", caption: "Out and about", r: 3 },
+    { src: "candid-02.jpg", caption: "Side by side", r: -2 },
+    { src: "candid-05.jpg", caption: "Holding on", r: 4 },
+    { src: "candid-06.jpg", caption: "By the water", r: -3 },
+    { src: "candid-04.jpg", caption: "Gallery date", r: 2 }
   ];
 
   // Pre-wedding photoshoot, in three chapters. First image of each is the large lead.
@@ -251,8 +252,9 @@
 
   /* ---------------- Copy account number ---------------- */
 
-  var copyBtn = document.getElementById("copyAcct");
-  copyBtn.addEventListener("click", function () {
+  document.addEventListener("click", function (e) {
+    var copyBtn = e.target.closest("[data-copy]");
+    if (!copyBtn) return;
     var text = copyBtn.getAttribute("data-copy");
     function done(ok) {
       copyBtn.textContent = ok ? "Copied!" : "Number: " + text;
